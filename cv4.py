@@ -4,6 +4,9 @@ import numpy as np
 
 # Initialize the webcam
 cap = cv2.VideoCapture(0)
+if not cap.isOpened():
+    st.error("Failed to initialize webcam. Please check if the webcam is connected and accessible.")
+    cap.open(0)
 
 # Create a Streamlit app
 st.title("Webcam App")
@@ -32,7 +35,7 @@ while True:
 
     # Check if frame is read correctly
     if not ret:
-        st.error("Failed to capture image from webcam")
+        st.error("Failed to capture image from webcam. Please ensure the webcam is not being used by another application.")
         break
 
     # Convert the frame to a numpy array
@@ -45,6 +48,9 @@ while True:
     if capture_button:
         # Capture the image
         ret, frame = cap.read()
+        if not ret:
+            st.error("Failed to capture image on button click.")
+            continue
         frame = np.array(frame)
         captured_image_placeholder.image(frame, caption="Captured Image", channels="BGR")
 
