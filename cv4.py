@@ -5,7 +5,7 @@ from PIL import Image
 
 # Create a Streamlit app
 st.title("Webcam App")
-st.sidebar.title("Webcam Menu")
+#st.sidebar.title("Webcam Menu")
 
 # Create a button to reset the image
 #reset_button = st.sidebar.button("Reset", key="reset_button")
