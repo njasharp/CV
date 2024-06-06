@@ -1,75 +1,39 @@
-import cv2
 import streamlit as st
+import cv2
 import numpy as np
-
-# Initialize the webcam
-cap = cv2.VideoCapture(0)
+from PIL import Image
 
 # Create a Streamlit app
 st.title("Webcam App")
 st.sidebar.title("Webcam Menu")
 
-# Create a button to capture an image
-capture_button = st.sidebar.button("Capture Image", key="capture_button")
-
-# Create a reset button
+# Create a button to reset the image
 reset_button = st.sidebar.button("Reset", key="reset_button")
 
-# Create a canvas to display the image
-canvas = st.empty()
-captured_image_placeholder = st.sidebar.empty()
+# Create a placeholder for the webcam input
+uploaded_image = st.camera_input("Capture Image")
 
-# Function to reset the capture button state
-def reset():
+# Function to reset the captured image
+if reset_button:
     st.experimental_rerun()
 
-if reset_button:
-    reset()
+if uploaded_image:
+    # Convert the uploaded image to an OpenCV format
+    img = Image.open(uploaded_image)
+    frame = np.array(img)
 
-while True:
-    # Read a frame from the webcam
-    ret, frame = cap.read()
+    # Convert the image to grayscale
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    # Check if frame is read correctly
-    if not ret:
-        st.error("Failed to capture image from webcam")
-        break
+    # Load the face cascade
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
-    # Convert the frame to a numpy array
-    frame = np.array(frame)
+    # Detect faces in the image
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
 
-    # Display the frame in the canvas
-    canvas.image(frame, channels="BGR")
+    # Draw rectangles around the detected faces
+    for (x, y, w, h) in faces:
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
-    # Check if the capture button was clicked
-    if capture_button:
-        # Capture the image
-        ret, frame = cap.read()
-        frame = np.array(frame)
-        captured_image_placeholder.image(frame, caption="Captured Image", channels="BGR")
-
-        # Convert the image to grayscale
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-        # Load the face cascade
-        face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-
-        # Detect faces in the image
-        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
-
-        # Draw rectangles around the detected faces
-        for (x, y, w, h) in faces:
-            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-
-        # Display the final output
-        st.image(frame, caption="Processed Image with Face Bounding Box", channels="BGR")
-
-        # Reset the capture button
-        capture_button = False
-
-    # Exit the loop if the user closes the app
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-# Release the webcam
-cap.release()
+    # Display the final output
+    st.image(frame, caption="Processed Image with Face Bounding Box", channels="BGR")
