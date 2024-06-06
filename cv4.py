@@ -8,7 +8,7 @@ st.title("Webcam App")
 st.sidebar.title("Webcam Menu")
 
 # Create a button to reset the image
-reset_button = st.sidebar.button("Reset", key="reset_button")
+#reset_button = st.sidebar.button("Reset", key="reset_button")
 
 # Create a placeholder for the webcam input
 uploaded_image = st.camera_input("Capture Image")
