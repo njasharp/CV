@@ -5,17 +5,11 @@ from PIL import Image
 
 # Create a Streamlit app
 st.title("Webcam App")
-#st.sidebar.title("Webcam Menu")
 
-# Create a button to reset the image
-#reset_button = st.sidebar.button("Reset", key="reset_button")
 
 # Create a placeholder for the webcam input
 uploaded_image = st.camera_input("Capture Image")
 
-# Function to reset the captured image
-#if reset_button:
-    #st.experimental_rerun()
 
 if uploaded_image:
     # Convert the uploaded image to an OpenCV format
