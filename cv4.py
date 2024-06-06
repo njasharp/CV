@@ -14,8 +14,8 @@ st.title("Webcam App")
 uploaded_image = st.camera_input("Capture Image")
 
 # Function to reset the captured image
-if reset_button:
-    st.experimental_rerun()
+#if reset_button:
+    #st.experimental_rerun()
 
 if uploaded_image:
     # Convert the uploaded image to an OpenCV format
