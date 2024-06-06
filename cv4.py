@@ -1,30 +1,3 @@
-import cv2
-import streamlit as st
-import numpy as np
-
-# Initialize the webcam
-cap = cv2.VideoCapture(0)
-
-# Create a Streamlit app
-st.title("Webcam App")
-st.sidebar.title("Webcam Menu")
-
-# Create a button to capture an image
-capture_button = st.sidebar.button("Capture Image", key="capture_button")
-
-# Create a canvas to display the image
-import cv2
-import streamlit as st
-import numpy as np
-
-# Initialize the webcam
-cap = cv2.VideoCapture(0)
-
-# Create a Streamlit app
-st.title("Webcam App")
-st.sidebar.title("Webcam Menu")
-
-# Create a button to capture an image
 capture_button = st.sidebar.button("Capture Image", key="capture_button")
 
 # Create a reset button
