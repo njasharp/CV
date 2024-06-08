@@ -11,7 +11,7 @@ use_default_image = st.sidebar.checkbox("Use Default Image")
 
 # If the checkbox is checked, use the default image
 if use_default_image:
-    default_image_path = "image.jpg"
+    default_image_path = ".\image.png"
     uploaded_file = open(default_image_path, "rb")
 else:
     uploaded_file = st.sidebar.file_uploader("Upload Image", type=["jpg", "png"])
