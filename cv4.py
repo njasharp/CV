@@ -2,6 +2,7 @@ import streamlit as st
 import cv2
 import numpy as np
 from PIL import Image
+import traceback
 
 st.title("Webcam App")
 
@@ -31,3 +32,4 @@ try:
 
 except Exception as e:
     st.error(f"An error occurred: {e}")
+    st.write(traceback.format_exc())
