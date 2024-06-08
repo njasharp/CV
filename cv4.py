@@ -3,13 +3,9 @@ import cv2
 import numpy as np
 from PIL import Image
 
-# Create a Streamlit app
 st.title("Webcam App")
 
-
-# Create a placeholder for the webcam input
 uploaded_image = st.camera_input("Capture Image")
-
 
 if uploaded_image:
     # Convert the uploaded image to an OpenCV format
@@ -30,4 +26,4 @@ if uploaded_image:
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
     # Display the final output
-    st.image(frame, caption="Processed Image with Face Bounding Box", channels="BGR")
+    st.image(frame[: , :, ::-1], caption="Processed Image with Face Bounding Box")
