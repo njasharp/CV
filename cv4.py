@@ -3,11 +3,21 @@ import cv2
 import numpy as np
 from PIL import Image
 import traceback
+import os
 
 st.title("Face Detection App")
 
-# Sidebar option to upload an image file
-uploaded_file = st.sidebar.file_uploader("Upload Image", type=["jpg", "png"])
+# Sidebar option to start with a provided local file image.png
+load_default_image = st.sidebar.checkbox("Load Default Image")
+
+if load_default_image:
+    default_image_path = "image.png"
+    if os.path.exists(default_image_path):
+        uploaded_file = open(default_image_path, "rb")
+    else:
+        st.sidebar.error("Default image not found. Please make sure 'image.png' exists.")
+else:
+    uploaded_file = st.sidebar.file_uploader("Upload Image", type=["jpg", "png"])
 
 if uploaded_file is not None:
     try:
