@@ -3,26 +3,11 @@ import cv2
 import numpy as np
 from PIL import Image
 import traceback
-import os
 
 st.title("Face Detection App")
 
-# Check if it's the first use of the app
-if "first_use" not in st.session_state:
-    st.session_state.first_use = True
-
-# Sidebar option to use default image or upload an image
-use_default_image = st.sidebar.checkbox("Use Default Image")
-
-# If it's the first use or the checkbox is checked, use the default image
-if use_default_image or st.session_state.first_use:
-    default_image_path = "image.png"
-    if os.path.exists(default_image_path):
-        uploaded_file = open(default_image_path, "rb")
-    else:
-        st.error("Default image not found. Please make sure the default image 'image.png' is in the correct directory.")
-else:
-    uploaded_file = st.sidebar.file_uploader("Upload Image", type=["jpg", "png"])
+# Sidebar option to upload an image file
+uploaded_file = st.sidebar.file_uploader("Upload Image", type=["jpg", "png"])
 
 if uploaded_file is not None:
     try:
@@ -47,11 +32,11 @@ if uploaded_file is not None:
         # Display the final output
         st.image(frame[:, :, ::-1], caption="Processed Image with Face Bounding Box")
 
-        # Update the first_use flag
-        st.session_state.first_use = False
-
     except Exception as e:
         st.error(f"An error occurred: {e}")
         st.write(traceback.format_exc())
 else:
     st.sidebar.write("Please upload an image to start face detection.")
+
+    #st.error
+st.error("built by dw")
