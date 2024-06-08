@@ -47,4 +47,5 @@ if uploaded_file is not None:
         st.write(traceback.format_exc())
 else:
     st.sidebar.write("Please upload an image to start face detection.")
- st.info("build by DW")
+
+st.info("build by DW")
